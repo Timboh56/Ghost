@@ -54,9 +54,6 @@ public class Ghost {
 		// or game ends (with whole word being detected and length
 		// of word is more than 3 letters)
 		while(gameEnd(result,(length = word.length())) == false) {
-			
-			// switch turns
-			turn = !turn;
 
 			if (turn) {
 				System.out.println("\nEnter a letter: ");
@@ -72,7 +69,7 @@ public class Ghost {
 				System.out.println("Your input was invalid. Try again");
 			}  else {
 				result = checkLetter(letter);
-				word = word + letter;
+				if (result != 2) word = word + letter;
 			}
 			
 			System.out.println("Letters: " + word);
@@ -87,12 +84,16 @@ public class Ghost {
 	 */
 	public static boolean gameEnd(int result, int length) {
 		
+		// switch turns
+		turn = !turn;
+		
 		if (result == 2) {
 			
 			// if input string is less than 4 letters
 			// and human already has entered gibberish,
 			// give the human another chance..
 			if (length < 4) {
+				System.out.println("Ain't no word start like that. Try again");
 				turn = true; 
 				return false;
 			}else {
