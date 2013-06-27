@@ -21,7 +21,7 @@ public class Ghost {
 	private static Difficulty difficulty;
 	
 	// boolean turn determines whether it's your turn
-	private static boolean turn = false;
+	private static boolean turn = true;
 
 	/**
 	 * @param args
@@ -40,11 +40,12 @@ public class Ghost {
 		String word = "";
 		String letter = "";
 		int result = 0;
+		int length = 0;
+		boolean game = false;
 		curr_node = root;
 		Scanner s = new Scanner(System.in);
 		
 		System.out.println("GHOST: endless fun with words!");
-		int length = 0;
 
 		printASCIIArt();
 		
@@ -53,7 +54,7 @@ public class Ghost {
 		// escape the game if the input letters are not part of any word
 		// or game ends (with whole word being detected and length
 		// of word is more than 3 letters)
-		while(gameEnd(result,(length = word.length())) == false) {
+		while(game == false) {
 
 			if (turn) {
 				System.out.println("\nEnter a letter: ");
@@ -70,8 +71,10 @@ public class Ghost {
 			}  else {
 				result = checkLetter(letter);
 				if (result != 2) word = word + letter;
+				length = word.length();
+				game = gameEnd(result,length);
 			}
-			
+						
 			System.out.println("Letters: " + word);
 		}
 	}
@@ -84,9 +87,7 @@ public class Ghost {
 	 */
 	public static boolean gameEnd(int result, int length) {
 		
-		// switch turns
-		turn = !turn;
-		
+		boolean ret = false;
 		if (result == 2) {
 			
 			// if input string is less than 4 letters
@@ -95,7 +96,8 @@ public class Ghost {
 			if (length < 4) {
 				System.out.println("Ain't no word start like that. Try again");
 				turn = true; 
-				return false;
+				ret =  false;
+				
 			}else {
 				System.out.println("There's no word with that spelling! You lose");
 				return true;
@@ -104,7 +106,10 @@ public class Ghost {
 		}
 		
 		// if input string is just part of a word and not a word..
-		if (result == 0) return false;
+		if (result == 0){
+			turn = !turn;
+			ret = false;
+		}
 
 		// if input string is a word and more than 3 letters..
 		if (result == 1 && length > 3) {
@@ -114,7 +119,7 @@ public class Ghost {
 				System.out.println("You win!");
 			return true;
 		}
-		return false;
+		return ret;
 	}
 	
 	
