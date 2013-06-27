@@ -118,10 +118,12 @@ public class Ghost {
 			else
 				System.out.println("You win!");
 			return true;
+		} else if (result == 1 && length < 4){
+			turn = !turn;
 		}
+		
 		return ret;
 	}
-	
 	
 	public static void difficulty(Scanner s) {
 		System.out.println("Enter a difficulty (normal or hard): ");
