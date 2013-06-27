@@ -162,7 +162,7 @@ public class Ghost {
 	}
 
 	public static void setup() throws IOException {
-		String path = "/Users/thui/Documents/workspace/practice/src/WORD.LST";
+		String path = "WORD.LST";
 		FileReader fr = new FileReader(path);
 		BufferedReader textreader = new BufferedReader(fr);
 		String line;
